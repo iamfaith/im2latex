@@ -95,7 +95,14 @@ python evaluate.py --split=test \
 
 
 
+## training 
 
+
+ nohup python train.py \
+      --data_path=$(pwd)/data \
+      --save_dir=$(pwd)/cp \
+      --dropout=0.2 --add_position_features \
+      --epoches=25 --max_len=150 --batch_size 8 --print_freq 10 &
 
 
 

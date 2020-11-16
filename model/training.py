@@ -25,10 +25,11 @@ class Trainer(object):
         self.last_epoch = last_epoch
         self.best_val_loss = 1e18
         self.device = torch.device("cuda" if use_cuda else "cpu")
+        print('init training', self.device)
 
     def train(self):
         mes = "Epoch {}, step:{}/{} {:.2f}%, Loss:{:.4f}, Perplexity:{:.4f}"
-
+        print('begin training')
         while self.epoch <= self.last_epoch:
             self.model.train()
             losses = 0.0

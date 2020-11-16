@@ -34,7 +34,7 @@ def main():
                         default=0., help="Dropout probility")
     parser.add_argument("--cuda", action='store_true',
                         default=True, help="Use cuda or not")
-    parser.add_argument("--batch_size", type=int, default=32)
+    parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--epoches", type=int, default=15)
     parser.add_argument("--lr", type=float, default=3e-4,
                         help="Learning Rate")
@@ -63,7 +63,7 @@ def main():
     parser.add_argument("--seed", type=int, default=2020,
                         help="The random seed for reproducing ")
     parser.add_argument("--from_check_point", action='store_true',
-                        default=False, help="Training from checkpoint or not")
+                        default=True, help="Training from checkpoint or not")
 
     args = parser.parse_args()
     max_epoch = args.epoches
@@ -91,13 +91,13 @@ def main():
         batch_size=args.batch_size,
         collate_fn=partial(collate_fn, vocab.sign2id),
         pin_memory=True if use_cuda else False,
-        num_workers=4)
+        num_workers=1)
     val_loader = DataLoader(
         Im2LatexDataset(args.data_path, 'validate', args.max_len),
         batch_size=args.batch_size,
         collate_fn=partial(collate_fn, vocab.sign2id),
         pin_memory=True if use_cuda else False,
-        num_workers=4)
+        num_workers=1)
 
     # construct model
     print("Construct model")
